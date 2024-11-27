@@ -36,6 +36,12 @@ func New(bytecode *compiler.ByteCode) *VM {
 	}
 }
 
+func NewWithGlobalStore(bytecode *compiler.ByteCode, s []object.Object) *VM {
+	vm := New(bytecode)
+	vm.globals = s
+	return vm
+}
+
 func (vm *VM) Run() error {
 	for ip := 0; ip < len(vm.instructions); ip++ {
 		op := code.Opcode(vm.instructions[ip])
