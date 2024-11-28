@@ -43,6 +43,8 @@ const (
 	OpGetGlobal
 	OpSetGlobal
 
+	OpArray
+
 	OpNull
 )
 
@@ -71,6 +73,8 @@ var definitions = map[Opcode]*Definition{
 
 	OpGetGlobal: {"OpGetGlobal", []int{2}},
 	OpSetGlobal: {"OpSetGlobal", []int{2}},
+
+	OpArray: {"OpArray", []int{2}},
 
 	OpNull: {"OpNull", []int{}},
 }
