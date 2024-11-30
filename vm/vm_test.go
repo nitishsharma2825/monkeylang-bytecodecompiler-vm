@@ -328,3 +328,62 @@ func TestCallingFunctionsWithoutArguments(t *testing.T) {
 
 	runVmTests(t, tests)
 }
+
+func TestFunctionsWithReturnStatements(t *testing.T) {
+	tests := []vmTestCase{
+		{
+			input: `
+			let earlyExit = fn() { return 99; 100; };
+			earlyExit();
+			`,
+			expected: 99,
+		},
+		{
+			input: `
+			let earlyExit = fn() {return 99; return 100; }
+			earlyExit();
+			`,
+			expected: 99,
+		},
+	}
+
+	runVmTests(t, tests)
+}
+
+func TestFunctionsWithoutReturnStatements(t *testing.T) {
+	tests := []vmTestCase{
+		{
+			input: `
+			let noReturn = fn() { };
+			noReturn();
+			`,
+			expected: Null,
+		},
+		{
+			input: `
+			let noReturn = fn() { };
+			let noReturnTwo = fn() { noReturn(); };
+			noReturn();
+			noReturnTwo();
+			`,
+			expected: Null,
+		},
+	}
+
+	runVmTests(t, tests)
+}
+
+func TestFirstClassFunctions(t *testing.T) {
+	tests := []vmTestCase{
+		{
+			input: `
+			let returnsOne = fn() { 1; };
+			let returnsOneReturner = fn() { returnsOne; };
+			returnsOneReturner()();
+			`,
+			expected: 1,
+		},
+	}
+
+	runVmTests(t, tests)
+}
