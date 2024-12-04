@@ -56,6 +56,8 @@ const (
 	OpReturnValue
 	OpReturn
 
+	OpGetBuiltin
+
 	OpNull
 )
 
@@ -97,6 +99,8 @@ var definitions = map[Opcode]*Definition{
 
 	OpReturnValue: {"OpReturnValue", []int{}},
 	OpReturn:      {"OpReturn", []int{}},
+
+	OpGetBuiltin: {"OpReturn", []int{1}},
 
 	OpNull: {"OpNull", []int{}},
 }
